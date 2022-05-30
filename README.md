@@ -6,11 +6,11 @@ You can download and install this module in the usual way. Be aware that this mo
 
 ## Details
 
-This module enables the book module and add some sample content to help you get started with a user guide for your site. This is a way to create some admin only content to help your site managers, site editors and future developers understand how to use the site.
+This module enables the book module and adds some sample content to help you get started with a user guide for your site. This is a way to create some admin only content to help your site managers, site editors and future developers understand how to use the site. By default, the provided User Guide is not accessible to unauthenticated site visitors. 
 
 Specifically, here is a list of the changes that this module makes to your site:
 
-- Enables the Book module (in core) and creates the User Manual book. The User Manual has general information about Backdrop, but can also be customized and used a site specific user manual for this specific site. 
+- Enables the Book module (in core) and creates the User Manual book. The User Manual has general information about Backdrop, but can also be customized and used as a site specific user manual for this site. 
 - Installs and enables the Content View Access module. The Content View Access module is a contrib module that allows us to easily set access permissions for specific content types. We are using this module to make Book pages only accessible to authenticated users.
 
 Uninstall or Upgrade Options
