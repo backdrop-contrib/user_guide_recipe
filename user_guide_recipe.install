@@ -1,25 +1,6 @@
 <?php
 
-	function user_manual_install() {
-
-		// Checking to see if "About" node still exists
-		$query = new EntityFieldQuery();
-	 	$entities = $query->entityCondition('entity_type', 'node')
-	  	->propertyCondition('type', 'page')
-	  	->propertyCondition('title', 'About')
-	  	->propertyCondition('status', 1)
-	  	->range(0,1)
-	  	->execute();
-
-	  if (!empty($entities['node'])) {
-	    $about = node_load(array_shift(array_keys($entities['node'])));
-	  }
-	  // If About page exists, unpublish it.
-		if (!empty($about)) {
-			$page = node_load($about->nid);
-		  $page->status = '0';
-		  node_save($page);
-		}
+	function user_guide_recipe_install() {
 
 		$pages = array(
 	    '001' => array(
@@ -152,102 +133,12 @@
 	      'depth' => '2',
 	      'promote' => '0',
 	    ),
-	    '501' => array(
-	      'title' => st('Promoted Content'),
-	      'body' => '501',
-	      'type' => 'post',
-	      'promote' => '1',
-	      'tags' => array('Promoted Content','Help'),
-	    ),
-	    '502' => array(
-	      'title' => st('Post that was not promoted'),
-	      'body' => '502',
-	      'type' => 'post',
-	      'promote' => '0',
-	      'tags' => array('Promoted Content'),
-	    ),
-	    '503' => array(
-	      'title' => st('Backdrop LIVE'),
-	      'body' => '503',
-	      'type' => 'post',
-	      'promote' => '1',
-	      'tags' => array('Community'),
-	    ),
-	    '504' => array(
-	      'title' => st('Community Support'),
-	      'body' => '504',
-	      'type' => 'post',
-	      'promote' => '0',
-	      'tags' => array('Community', 'Support'),
-	    ),
-	    '505' => array(
-	      'title' => st('The Dashboard'),
-	      'body' => '505',
-	      'type' => 'post',
-	      'promote' => '1',
-	      'tags' => array('Tools', 'Support'),
-	    ),
-	    '506' => array(
-	      'title' => st('Why Used Backdrop (The Video)'),
-	      'body' => '506',
-	      'type' => 'post',
-	      'promote' => '0',
-	      'tags' => array(''),
-	    ),
-	    '600' => array(
-	      'title' => st('About'),
-	      'body' => '600',
-	      'type' => 'page',
-	      'promote' => '0',
-	      'tags' => array(''),
-	    ),
-	    '601' => array(
-	      'title' => st('Site Details'),
-	      'body' => '601',
-	      'type' => 'page',
-	      'promote' => '0',
-	      'tags' => array(''),
-	      'menu_parent' => 'about',
-	    ),
-	    '602' => array(
-	      'title' => st("What's Next"),
-	      'body' => '602',
-	      'type' => 'page',
-	      'promote' => '0',
-	      'tags' => array(''),
-	      'menu_parent' => 'about',
-	    ),
 	  );
 
 		// Setting some values we'll be using a little later. 
-		// 'created' is to help adjust creation time on nodes, to make the sample content 
-    // behave more realistic than if it is all created at the same moment. 
-		// I just do some math to change the created time of each node we create.
-	  $module_path = backdrop_get_path('module', 'user_manual');
+	  $module_path = backdrop_get_path('module', 'user_guide_recipe');
 	  $weight = -10;
 	  $created = time() - '1036800';
-
-	  // Creates an array of all new taxonony terms
-	  $new_terms = array();
-	  foreach ($pages as $page) {
-	  	$page = $page['tags'];
-	  	foreach ($page as $tag) {
-	  		if (!in_array($tag, $new_terms)) {
-			  	array_push($new_terms, $tag);
-	  		}
-	  	}
-	  }
-
-	  // Adds all new terms to 'tags' vocabulary
-	  foreach ($new_terms as $new_term) {
-	  	$term = entity_create('taxonomy_term', array(
-			  'name' => $new_term,
-			  'description' => '',
-			  'format' => 1,
-			  'vocabulary' => 'tags',
-			));
-			taxonomy_term_save($term);
-	  }
 
 	  // Create new nodes
 	  foreach ($pages as $info) {
@@ -272,17 +163,10 @@
 	      )
 	    );
 
-	    // Find tid for each new term and add term to node
-	    $term_key = '0';
-	    foreach ($info['tags'] as $page_tag) {
-	    	$temp_tag = taxonomy_term_load_multiple_by_name($page_tag, 'tags');
-	    	$term_tid = array_keys($temp_tag);
-				$page->field_tags['und'][$term_key++]['tid'] = $term_tid[0];
-	    }
-	    $page->save();
-
 	    // Help make an arbitrary adjustment to node creation date
 	    $created = $created - '1003121';
+
+	    $page->save();
 
 			// Create a menu item for User Manual
 	    if ($page->title == 'User Manual') {
@@ -296,36 +180,6 @@
 				);
 				menu_link_save($item);
 	    }
-
-			// Create an "About" link in the main menu.
-	    if ($page->title == 'About') {
-			  $item = array(
-			    'link_path' => 'node/' . $page->nid,
-			    'link_title' => 'About',
-			    'weight' => 1,
-			  );
-			  menu_link_save($item);
-			  $about_mlid = $item['mlid'];
-			  // While here, fix the about alias
-			  $about = node_load($page->nid);
-			  dpm($about);
-			  $about->path['auto'] = FALSE;
-			  $about->path['alias'] = 'new-about';
-			  $about->save();
-			  dpm($about);
-			}
-
-			// Create menu items for children of About
-	    if ($info['menu_parent'] == 'about') {
-			  $item = array(
-			    'link_path' => 'node/' . $page->nid,
-			    'link_title' => $page->title,
-			    'weight' => 2,
-			    'plid' => $about_mlid,
-			  );
-			  menu_link_save($item);
-			  dpm($item);
-			}
 
 	    // Update the menu router information.
 			menu_rebuild();
@@ -405,79 +259,6 @@
 
 		 // Rebuild permissions
   	node_access_rebuild();
-
-		// Changing the text in the default post provided by standard install profile
-  	$nodes = node_load_multiple(NULL, array("title" => "Your first post!"));
-		$node = current($nodes);
-		$content = file_get_contents($module_path . '/content/post.txt');
-		$node->body[LANGUAGE_NONE][0]['value'] = $content;
-		$node->created = time() - '2600000';
-		node_save($node);
-
-
-		// Prepping new image to use in hero block of front page.
-		$field_image_dir = 'public://hero';
-  	file_prepare_directory($field_image_dir, FILE_CREATE_DIRECTORY);
-  	$image_url = BACKDROP_ROOT . '/' . $module_path . '/images/mountain-shadows.jpg';
-  	$moved_file = file_unmanaged_copy($image_url, $field_image_dir);
-
-  	$file = entity_create('file', array(
-      'filename' => 'mountain-shadows.jpg',
-      'uri' => $moved_file,
-      'uid' => 1,
-    ));
-    $file->save();
-
-
-    // We added a profile field to user accounts
-    // This adds some default content to user #1 profile page
-    $user_account = user_load('1');
-    $content = file_get_contents($module_path . '/content/user.txt');
-    $user_account->field_profile[LANGUAGE_NONE][0]['value'] = $content;
-    $user_account->field_profile[LANGUAGE_NONE][0]['format'] = 'filtered_html';
-    user_save($user_account);
-
-    // Adding mini-block that we use for footer
-    $uuid1 = '57deb90a-f136-49af-af00-c5e14ec6b8c5';
-	  $block1 = array(
-	    'content.' . $uuid1 => array(
-	      'plugin' => 'mini_layouts:footer',
-	      'data' => array(
-	        'module' => 'mini_layouts',
-	        'delta' => 'footer',
-	        'settings' => array(
-	          'title_display' => 'default',
-	          'title' => '',
-	          'style' => 'default',
-	          'block_settings' => [],
-	          'contexts' => [],
-	        ),
-	        'uuid' => $uuid1,
-	        'style' => array(
-	          'plugin' => 'default',
-	          'data' => array(
-	            'settings' => array(
-	              'classes' => '',
-	            ),
-	          ),
-	        ),
-	      ),
-	    ),
-	  );
-
-	  // Adds block to layouts
-	  config_set_multiple('layout.layout.home', $block1 );
-	  config_set_multiple('layout.layout.default', $block1 );
-	  config_set_multiple('layout.layout.user_manual', $block1 );
-
-	  // Puts block into footer of each layout
-	  config_set('layout.layout.home','positions.footer', array('d6903155-4ad7-46d3-9300-e628fd337f06', $uuid1 ));
-	  config_set('layout.layout.default','positions.footer', array('d6903155-4ad7-46d3-9300-e628fd337f06', $uuid1 ));
-	  config_set('layout.layout.user_manual','positions.footer', array('d6903155-4ad7-46d3-9300-e628fd337f06', $uuid1 ));
-
-	  // Changing image and title in hero block on front page
-	  config_set('layout.layout.home', 'content.094cbc03-d088-4b3c-8361-977733540ae8.data.settings.image_path', '/files/hero/mountain-shadows.jpg');
-	  config_set('layout.layout.home', 'content.094cbc03-d088-4b3c-8361-977733540ae8.data.settings.title', 'Getting Started with Backdrop');
 
 	  backdrop_set_message('The User Guide module has installed some content on your site and enabled some contributed modules to help you better evaluate and test Backdrop CMS. You will need to manually delete any content that you do not wish to keep.', 'info');
 
