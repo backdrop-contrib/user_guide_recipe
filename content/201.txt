@@ -5,3 +5,8 @@
 <p>If you were to do this on a Backdrop site you would create a Content Type. You would name your new Content Type (e.g. My Contacts), define the information that you wanted to store about each contact (called Fields in Backdrop), and then add those Fields (name, address, and telephone number, etc.) to that Content Type. You would then use this "My Contacts" Content Type to enter the information for each of the contacts you needed to store.&nbsp;</p>
 
 <p>https://docs.backdropcms.org/documentation/content-types</p>
+
+<p>&nbsp;</p>
+
+<p>[video:https://youtu.be/s7DNBr6d_h8]</p>
+

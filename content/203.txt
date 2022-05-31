@@ -21,3 +21,8 @@
 <p>An exception is the first user created (user/1) who has and maintains all permissions by default.</p>
 
 <p>https://docs.backdropcms.org/documentation/users-roles-and-permissions</p>
+
+<p>&nbsp;</p>
+
+<p>[video:https://youtu.be/Y8lYCqaWgOM]</p>
+

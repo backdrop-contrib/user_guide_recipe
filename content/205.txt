@@ -12,3 +12,13 @@
 </ul>
 
 <p>https://docs.backdropcms.org/documentation/layouts-and-templates</p>
+
+<p>[video:https://youtu.be/0ZNYnZZdVFY]</p>
+
+<ul>
+	<li><strong>Mini Layouts</strong> - are not covered in the main documentation, because they are not part of a default Backdrop installation. However, <a href="https://backdropcms.org/project/mini_layouts">Mini Layouts</a> is a powerful contrib module that we have used as part of the Welcome Module Recipe and is worth experimenting with.</li>
+</ul>
+
+<p>The Mini Layout module is no longer in testing phase, it is available for live sites. Some of the details may have changed slightly since this video was made, but it should still be a valuable resource. Mini Layouts are used as part of the Welcome module, which you may be using with this content.</p>
+
+<p>[video:https://youtu.be/-8S7UtVJ1II]</p>
