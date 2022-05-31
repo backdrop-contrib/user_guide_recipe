@@ -263,4 +263,3 @@
 	  backdrop_set_message('The User Guide Recipe module has installed some content on your site and enabled some contributed modules to help you better evaluate and test Backdrop CMS. You will need to manually delete any content that you do not wish to keep.', 'info');
 
 	}
-
