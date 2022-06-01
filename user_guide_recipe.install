@@ -4,7 +4,7 @@
 
 		$pages = array(
 	    '001' => array(
-	      'title' => st('User Manual'),
+	      'title' => st('User Guide'),
 	      'body' => '001',
 	      'type' => 'book',
 	      'has_children' => '1',
@@ -168,13 +168,13 @@
 
 	    $page->save();
 
-			// Create a menu item for User Manual
-	    if ($page->title == 'User Manual') {
+			// Create a menu item for User Guide
+	    if ($page->title == 'User Guide') {
 	    	  // Get book NID for use to set BID on each page of book
-	    		$user_manual_nid = $page->nid;
+	    		$user_guide_nid = $page->nid;
 	    		$item = array(
-				  'link_title' => st('User Manual'),
-				  'link_path' => 'node/' . $user_manual_nid,
+				  'link_title' => st('User Guide'),
+				  'link_path' => 'node/' . $user_guide_nid,
 				  'menu_name' => 'main-menu',
 				  'weight' => 10,
 				);
@@ -190,11 +190,11 @@
 	    	// Need to set the BID (book id) which is same as NID and save to trigger creation of 
 	    	// other required default values necessary to proceed.
 		    $page = node_load($page->nid);
-		    $page->book['bid'] = $user_manual_nid;
+		    $page->book['bid'] = $user_guide_nid;
 		    node_save($page);
 
 				// section_plid and plid_counter used to help parent items
-	    	if ($page->title == 'User Manual') {
+	    	if ($page->title == 'User Guide') {
 	    		$book_id = $page->book['mlid'];
 	    		$section_plid = $plid_counter = $book_id;
 	    	}
@@ -262,5 +262,4 @@
   	node_access_rebuild();
 
 		backdrop_set_message('The User Guide Recipe module has installed some content on your site and enabled some contributed modules to help you better evaluate and test Backdrop CMS. You will need to manually delete any content that you do not wish to keep.', 'info');
-
 	}
