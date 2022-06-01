@@ -1,8 +1,8 @@
 {
-    "_config_name": "layout.layout.user_manual",
+    "_config_name": "layout.layout.user_guide",
     "path": "node/%",
-    "name": "user_manual",
-    "title": "User Manual",
+    "name": "user_guide",
+    "title": "User Guide",
     "description": null,
     "renderer_name": "standard",
     "module": null,

@@ -10,7 +10,7 @@ This module enables the book module and adds some sample content to help you get
 
 Specifically, here is a list of the changes that this module makes to your site:
 
-- Enables the Book module (in core) and creates the User Manual book. The User Manual has general information about Backdrop, but can also be customized and used as a site specific user manual for this site. 
+- Enables the Book module (in core) and creates the User Guide book. The User Guide has general information about Backdrop, but can also be customized and used as a site specific User Guide for this site. 
 - Installs and enables the Content View Access module. The Content View Access module is a contrib module that allows us to easily set access permissions for specific content types. We are using this module to make Book pages only accessible to authenticated users.
 
 Uninstall or Upgrade Options
