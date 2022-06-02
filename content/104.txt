@@ -1,1 +1,11 @@
-<p>You can use this page to list your themes along with a little information about how you intend to use each one. This might be useful to yourself or others in the future.&nbsp;</p>
+<p><strong>Use this page to describe the theme(s) you are using for your site and any information that you think might be helpful to future developers or site managers.&nbsp;</strong></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>

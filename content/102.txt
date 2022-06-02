@@ -1,1 +1,13 @@
 <p>When building or maintaining a website, it's always good to keep in mind who your audience is and what your goals are. Use this page to make some notes that you can reference later. We recommend that you review and update this page on a periodic basis.&nbsp;</p>
+
+<p><strong>Who is your audience?</strong></p>
+
+<p>&nbsp;</p>
+
+<p><strong>What are your goals for this site?</strong></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
