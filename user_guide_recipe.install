@@ -1,6 +1,8 @@
 <?php
 
 	function user_guide_recipe_install() {
+	  global $user;
+	  $current_uid = $user->uid;
 
 		$pages = array(
 	    '001' => array(
@@ -154,7 +156,7 @@
 	            ),
 	          ),
 	        ),
-	        'uid' => 1,
+	        'uid' => $current_uid,
 	        'promote' => $info['promote'],
 	        'status' => 1,
 	        'type' => $info['type'],
@@ -229,7 +231,7 @@
 	  // END new nodes section
 
 		$format = filter_format_load('filtered_html');
-		$format->filters['video_filter'] = (object) $FILTER_ARRAY;
+		$format->filters['video_filter'] = (object) array();
 		filter_format_save($format);
 
 		// Make sure filters are in the correct order
